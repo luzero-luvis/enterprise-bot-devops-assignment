@@ -37,6 +37,23 @@ jobs:
         with:
           image-ref: demo-service:${{ github.sha }}
           format: table
+          output: trivy-report.txt
           exit-code: "1"
           ignore-unfixed: true
           severity: HIGH,CRITICAL
+      - name: Publish image scan summary
+        if: always()
+        run: |
+          {
+            echo '## Image scan summary'
+            echo
+            echo '**Image:** `demo-service:${{ github.sha }}`'
+            echo
+            echo '```text'
+            if [ -f trivy-report.txt ]; then
+              cat trivy-report.txt
+            else
+              echo 'Trivy did not produce a report.'
+            fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
