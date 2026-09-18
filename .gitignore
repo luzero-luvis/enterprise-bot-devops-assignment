@@ -1,0 +1,13 @@
+# Python build/runtime artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Editor and local environment files
+.DS_Store
+.env
+.env.*
+
+# Assignment handout is not a submission deliverable
+ASSIGNMENT.md
